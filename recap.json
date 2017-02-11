@@ -1,0 +1,18 @@
+{
+  "handlers": [
+    {
+      "class_name": "Recap",
+      "args": {
+        "pcap_filename": "test.pcap",
+        "out_port": "0"
+      }
+    }
+  ],
+  "interfaces": [
+    {
+      "interface_name" : "en0",
+      "lead_handler" : "Recap",
+      "pcap_filter" : ""
+    }
+  ]
+}
