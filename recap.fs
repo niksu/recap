@@ -17,11 +17,12 @@ open pcap
 type Recap (pcap_filename : string, out_port : int) as this =
   inherit Pax.ByteBased_PacketProcessor ()
   let mutable now_ms : uint64 = 0uL
+  let mutable count = 0
   let pcap_contents : pcap_file_contents = pcap.deserialise_pcap pcap_filename
   override this.process_packet (in_port : int, packet : byte[]) = ()
   interface IActive with
     member this.Start () =
-      printfn "Starting to play the pcap file"
+      printfn "Playing the pcap file"
       List.iter (fun (pfp : pcap_file_packet) ->
         (*FIXME we lose timing resolution by going from microsec to millisec*)
         let packet_now_ms =
@@ -29,7 +30,8 @@ type Recap (pcap_filename : string, out_port : int) as this =
         if now_ms <> 0uL then
           Thread.Sleep (int (packet_now_ms - now_ms))
         now_ms <- packet_now_ms
-        printfn "Sent packet"
+        count <- count + 1
+        printfn "Sent packet %d of %d" count (List.length pcap_contents.packets)
         this.send_packet (out_port, pfp.data, int pfp.header.incl_len))
         (pcap_contents.packets : pcap_file_packet list)
       Frontend.shutdown()
