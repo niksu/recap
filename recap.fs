@@ -31,7 +31,8 @@ type Recap (pcap_filename : string, out_port : int) as this =
           Thread.Sleep (int (packet_now_ms - now_ms))
         now_ms <- packet_now_ms
         count <- count + 1
-        printfn "Sent packet %d of %d" count (List.length pcap_contents.packets)
+        printfn "Sent packet %d of %d (%d bytes)"
+          count (List.length pcap_contents.packets) (int pfp.header.incl_len)
         this.send_packet (out_port, pfp.data, int pfp.header.incl_len))
         (pcap_contents.packets : pcap_file_packet list)
       Frontend.shutdown()
