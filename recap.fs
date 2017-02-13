@@ -33,6 +33,17 @@ type Recap (pcap_filename : string, out_port : int) as this =
         count <- count + 1
         printfn "Sent packet %d of %d (%d bytes)"
           count (List.length pcap_contents.packets) (int pfp.header.incl_len)
+
+        if PaxConfig.opt_verbose then
+          Array.iter (fun (b : byte) ->
+            let s : string =
+              if b > 31uy && b < 127uy then
+                (* FIXME crude coding style -- avoid forming singleton array from "b"*)
+                System.Text.Encoding.ASCII.GetString([|b|])
+              else "."
+            System.Console.Write(s)) pfp.data
+          System.Console.WriteLine()
+
         this.send_packet (out_port, pfp.data, int pfp.header.incl_len))
         (pcap_contents.packets : pcap_file_packet list)
       Frontend.shutdown()
