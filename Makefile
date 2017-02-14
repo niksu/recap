@@ -3,5 +3,4 @@
 
 recap.dll : recap.fs
 	fsharpc --out:$@ --target:library $(KNEECAP_DIR)/kneecap/pcap.fs $< --lib:$(PAX)/Bin/ \
-		--reference:Pax.exe --reference:SharpPcap.Dll --reference:PacketDotNet.Dll \
-		--define:DEBUG
+		--reference:Pax.exe --reference:SharpPcap.Dll --reference:PacketDotNet.Dll
