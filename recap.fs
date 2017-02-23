@@ -20,6 +20,7 @@ type Recap (pcap_filename : string, out_port : int) as this =
   let mutable count = 0
   let pcap_contents : pcap_file_contents = pcap.deserialise_pcap pcap_filename
   override this.process_packet (in_port : int, packet : byte[]) = ()
+
   interface IActive with
     member this.Start () =
       printfn "Playing the pcap file"
@@ -51,3 +52,8 @@ type Recap (pcap_filename : string, out_port : int) as this =
       (*FIXME could keep a local list of registered devices, and broadcast to all of them, rather than to out_port*)
       ()
     member this.Stop () = ()
+
+  interface IVersioned with
+    member this.expected_major_Pax_version = 0
+    member this.expected_minor_Pax_version = 2
+    member this.expected_patch_Pax_version = 0
