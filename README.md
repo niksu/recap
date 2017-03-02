@@ -5,7 +5,7 @@ It also serves as an example of how to write Pax elements in F#.
 ## Building
 1. set the environment variable `KNEECAP_DIR` to point to your clone of
    [Kneecap](https://github.com/niksu/kneecap)'s repo, and `PAX` to point to
-   your clone of [Pax](https://github.com/niksu/pax).
+   your clone of [Pax](https://github.com/niksu/pax)(>= v0.2).
 2. ensure that you've built Pax, and that its dependencies are satisfied.
 3. run `xbuild Recap.fsproj`
 
