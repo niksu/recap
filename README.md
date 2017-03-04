@@ -10,8 +10,8 @@ It also serves as an example of how to write Pax elements in F#.
 3. run `xbuild Recap.fsproj`
 
 ## Configuration
-Edit the file [recap.json](recap.json) to specify the pcap file you want played,
-and the logical port you want it played over.
+Edit the file [recap.json](recap.json) to specify the `pcap_filename` you want played,
+and the logical port you want it played over (`out_port`).
 
 ## Running
 `sh -e run.sh`
